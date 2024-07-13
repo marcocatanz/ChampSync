@@ -29,7 +29,7 @@ namespace server.Controllers
                 if(!ModelState.IsValid) return BadRequest(ModelState);
                 IdentityResult createdUserResult = await _service.Register(req);
                 if(!createdUserResult.Succeeded) return StatusCode(500, createdUserResult.Errors);
-                else return Ok("User Registered");                
+                else return Ok(new {message = "User Registered"});                
             }
             catch (Exception e)
             {

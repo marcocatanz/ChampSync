@@ -11,5 +11,7 @@ namespace server.Interfaces
     public interface IAuthService
     {
         Task<RegisterUserResponse> Register(RegisterUserRequest req); 
+        Task<RegisterUserResponse> Login(LoginUserRequest req); 
+
     }
 }

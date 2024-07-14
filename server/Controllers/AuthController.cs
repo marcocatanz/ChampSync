@@ -38,5 +38,22 @@ namespace server.Controllers
                 return StatusCode(500, e.Message);  
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserRequest req)
+        {
+            try
+            {
+                if(!ModelState.IsValid) return BadRequest(ModelState);
+                RegisterUserResponse loginUserResponse = await _service.Login(req);
+                if(!loginUserResponse.Succeeded) return StatusCode(500);
+                else return Ok(loginUserResponse.user);   
+            }
+            catch (Exception e)
+            {
+                
+                return StatusCode(500, e.Message); 
+            }
+        }
     }
 }

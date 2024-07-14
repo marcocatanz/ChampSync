@@ -55,6 +55,34 @@ namespace server.Services
             };
         }
 
+        public async Task<RegisterUserResponse> Login(LoginUserRequest req)
+        {
+            User? user = await _manager.FindByEmailAsync(req.Email);
+            if(user == null) return  new RegisterUserResponse
+            {
+                Succeeded = false
+            };
+
+            bool passwordValid = await _manager.CheckPasswordAsync(user, req.Password);
+            if(!passwordValid) return new RegisterUserResponse
+            {
+                Succeeded = false
+            };
+            LoggedInUserDto loggedInUser = new LoggedInUserDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Token = _tokenService.CreateToken(user)
+            };
+            return new RegisterUserResponse 
+            {
+                Succeeded = true,
+                user = loggedInUser
+            };
+            
+        }
+
 
     }
 }

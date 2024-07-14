@@ -1,7 +1,7 @@
 import './style.css'
 import { Button, Drawer, DrawerCloseButton, DrawerContent, useDisclosure, DrawerOverlay, DrawerFooter, DrawerHeader, DrawerBody } from "@chakra-ui/react"
 import { CiMenuBurger } from "react-icons/ci";
-import { useNavBar } from './useNavBar';
+import { useNavBar } from './useNavBar.tsx';
 const NavBar = () => {
     const {
         navLinks,
@@ -24,11 +24,28 @@ const NavBar = () => {
         if(navLinks.fixed) return navLinks.fixed.map((link) => {
             return (
                 <Button 
-                    key={`navlink_${link.name}`}
+                    key={`navlink_${link.label}`}
                     variant={link.variant || 'ghost'} 
                     colorScheme={link.colorScheme || 'whiteAlpha'} 
                     color={link.color || 'white'} 
                     onClick={()=>onNavLinkClick(link.path)}
+                >
+                    {link.label}
+                </Button>
+            )
+        })
+    }
+
+    const renderResponsiveNavLinks = () => {
+        if(navLinks.responsive) return navLinks.responsive.map((link) => {
+            return (
+                <Button 
+                    key={`navlink_${link.label}`}
+                    variant={link.variant || 'ghost'} 
+                    colorScheme={link.colorScheme || 'whiteAlpha'} 
+                    color={link.color || 'white'} 
+                    onClick={()=>onNavLinkClick(link.path)}
+                    className='nav-item-responsive'
                 >
                     {link.label}
                 </Button>
@@ -51,7 +68,9 @@ const NavBar = () => {
                     <DrawerContent backgroundColor={'#121219'}>
                         <DrawerCloseButton color={'white'}/>
                         <DrawerHeader></DrawerHeader>
-                        <DrawerBody></DrawerBody>
+                        <DrawerBody className='nav-mobile-body'>
+                            {renderResponsiveNavLinks()}
+                        </DrawerBody>
                         <DrawerFooter></DrawerFooter>
                     </DrawerContent>
                 </Drawer>
@@ -66,6 +85,7 @@ const NavBar = () => {
                 {renderNavBrand()}
             </div>
             <div className="nav-right">
+                {renderResponsiveNavLinks()}
                 {renderFIxedNavLinks()}
             </div>
         </div>

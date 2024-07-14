@@ -2,25 +2,26 @@ import { useEffect } from "react"
 import { useRegisterMutation } from "../../api"
 import { IRegisterFormValues } from "./components/RegisterForm/types"
 import { useToast } from "@chakra-ui/react"
+import { ILoginFormValues } from "./components/LoginForm/types"
 import { useAuth } from "../../hooks"
 
 export const use = () => {
-    const {
-        onLogin
-    } = useAuth()
+    const currentPath = window.location.pathname
+    const form: 'register' | 'login' = currentPath == '/register'
+        ? 'register'
+        : 'login'
+    const {onLogin} = useAuth()
     const [
         registerUser, 
         {
             data, 
             error, 
-            isUninitialized,
             isLoading, 
             isError, 
             isSuccess
         }
     ] = useRegisterMutation()
     const toast = useToast()
-
     useEffect(() => {
         if(isError){
             toast({
@@ -44,9 +45,12 @@ export const use = () => {
     }, [isError, isSuccess])
 
     const onRegistrationSubmit = (values: IRegisterFormValues) => registerUser(values)
+    const onLoginSubmit = (values: ILoginFormValues) => console.log('values')
     return {
-        isUninitialized,
+        form,
+        currentPath,
         isLoading,
-        onRegistrationSubmit
+        onRegistrationSubmit,
+        onLoginSubmit
     }
 }

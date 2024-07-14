@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marco\\OneDrive\\Documents\\Code\\Demo_Projects\\ChampSync\\server\\server.csproj": {}
+    "C:\\Users\\marco\\onedrive\\documents\\code\\demo_projects\\champsync\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marco\\OneDrive\\Documents\\Code\\Demo_Projects\\ChampSync\\server\\server.csproj": {
+    "C:\\Users\\marco\\onedrive\\documents\\code\\demo_projects\\champsync\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marco\\OneDrive\\Documents\\Code\\Demo_Projects\\ChampSync\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\marco\\onedrive\\documents\\code\\demo_projects\\champsync\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\marco\\OneDrive\\Documents\\Code\\Demo_Projects\\ChampSync\\server\\server.csproj",
+        "projectPath": "C:\\Users\\marco\\onedrive\\documents\\code\\demo_projects\\champsync\\server\\server.csproj",
         "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marco\\OneDrive\\Documents\\Code\\Demo_Projects\\ChampSync\\server\\obj\\",
+        "outputPath": "C:\\Users\\marco\\onedrive\\documents\\code\\demo_projects\\champsync\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config",

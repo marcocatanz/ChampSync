@@ -16,9 +16,11 @@ namespace server.Controllers
     public class AuthController: ControllerBase
     {
         private readonly IAuthService _service;
-        public AuthController(UserManager<User> manager, IAuthService service)
+        private readonly ITokenService _tokenService;
+        public AuthController(IAuthService service, ITokenService tokenService)
         {
             _service = service;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -27,9 +29,9 @@ namespace server.Controllers
             try
             {
                 if(!ModelState.IsValid) return BadRequest(ModelState);
-                IdentityResult createdUserResult = await _service.Register(req);
-                if(!createdUserResult.Succeeded) return StatusCode(500, createdUserResult.Errors);
-                else return Ok(new {message = "User Registered"});                
+                RegisterUserResponse registerUserResponse = await _service.Register(req);
+                if(!registerUserResponse.Succeeded) return StatusCode(500);
+                else return Ok(registerUserResponse.user);                
             }
             catch (Exception e)
             {

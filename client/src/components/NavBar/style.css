@@ -23,6 +23,7 @@
     align-items: center;
     gap: 10px;
 }
+
 .nav-menu {
     display: none;
 }
@@ -33,7 +34,13 @@
         cursor: pointer;
     }
 }
-.nav-mobile-menu { 
+.nav-mobile-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5;
+}
+.nav-right > .nav-item-responsive {
+    display: none;
 }
 @media (min-width: 768px) {
     .nav-mobile-menu {
@@ -42,6 +49,9 @@
     .nav-menu {
         display: flex;
         gap: 10px;
+    }
+    .nav-right > .nav-item-responsive {
+        display: flex;
     }
 }
 

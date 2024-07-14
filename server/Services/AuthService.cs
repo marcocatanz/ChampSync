@@ -6,6 +6,7 @@ using Azure;
 using Microsoft.AspNetCore.Identity;
 using server.Data;
 using server.DTOs.Auth;
+using server.DTOs.User;
 using server.Interfaces;
 using server.Models;
 
@@ -14,13 +15,15 @@ namespace server.Services
     public class AuthService: IAuthService
     {
         private readonly UserManager<User> _manager;
-        public AuthService(UserManager<User> manager)
+        private readonly ITokenService _tokenService;
+        public AuthService(UserManager<User> manager, ITokenService tokenService)
         {
             _manager = manager;
+            _tokenService = tokenService;
         }
 
      
-        public async Task<IdentityResult> Register(RegisterUserRequest req)
+        public async Task<RegisterUserResponse> Register(RegisterUserRequest req)
         {
             User user = new User 
             {
@@ -30,8 +33,28 @@ namespace server.Services
                 UserName = req.Email,
                 
             };
-            return  await _manager.CreateAsync(user, req.Password);
+            IdentityResult createdUserResult = await _manager.CreateAsync(user, req.Password);
+            if(createdUserResult.Succeeded)
+            {
+                LoggedInUserDto loggedInUser = new LoggedInUserDto
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Token = _tokenService.CreateToken(user)
+                };
+                return new RegisterUserResponse
+                {
+                    Succeeded = true,
+                    user = loggedInUser
+                };
+            }
+            else return new RegisterUserResponse
+            {
+                Succeeded = false
+            };
         }
+
 
     }
 }

@@ -10,6 +10,6 @@ namespace server.Interfaces
 {
     public interface IAuthService
     {
-        Task<IdentityResult> Register(RegisterUserRequest req); 
+        Task<RegisterUserResponse> Register(RegisterUserRequest req); 
     }
 }
